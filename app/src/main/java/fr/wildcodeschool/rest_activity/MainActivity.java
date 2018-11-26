@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Crée une file d'attente pour les requêtes vers l'API
+        final TextView weatherTxt = findViewById(R.id.hello);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         String url = "https://api.openweathermap.org/data/2.5/forecast?q=Toulouse&APPID=" + API_KEY;
@@ -46,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONArray weather = listInfos.getJSONArray("weather");
                                 JSONObject weatherInfos = (JSONObject) weather.get(0);
                                 String description = weatherInfos.getString("description");
-                                Toast toast = Toast.makeText(MainActivity.this, description, Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0,i*15);
-                                toast.show();
+                                weatherTxt.append(description + "\n");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
